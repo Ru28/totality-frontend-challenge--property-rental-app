@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CartContext } from "../utils/CartContext";
 
 const Header = () => {
   const { cartItems } = useContext(CartContext);
   return (
-    <BrowserRouter>
     <header className="bg-white shadow-md py-3 fixed z-50 border-b justify-center flex w-full font-light md:px-28">
       <div className="container flex flex-col items-center justify-between md:flex-row">
         <div className="px-2 my-1">
@@ -15,6 +14,11 @@ const Header = () => {
           <div>
             <Link to="/login" >
               <span>Login</span>
+            </Link>
+          </div>
+          <div>
+            <Link to="/propertyListForm">
+              <span>PropertyListForm</span>
             </Link>
           </div>
           <div>
@@ -28,7 +32,6 @@ const Header = () => {
         </div>
       </div>
     </header>
-    </BrowserRouter>
   )
 }
 

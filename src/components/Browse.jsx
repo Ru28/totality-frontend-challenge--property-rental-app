@@ -1,11 +1,10 @@
 
 
 const Browse = () => {
+  
   return (
-    <div>
-        
-    </div>
+     <></>
   )
 }
 
-export default Browse
+export default Browse;
