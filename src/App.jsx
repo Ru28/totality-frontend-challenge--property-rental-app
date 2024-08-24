@@ -5,7 +5,9 @@ import Signup from "./components/Signup";
 import Browse from './components/Browse';
 import Body from './components/Body';
 import PropertyListForm from './components/PropertyListForm';
-import { CartProvider } from './utils/CartContext';
+import BookingCart from './components/BookingCart';
+import { BookingProvider } from './utils/BookingContext';
+import CheckoutForm from './components/CheckoutForm';
 
 function App() {
   const appRouter= createBrowserRouter([
@@ -28,14 +30,22 @@ function App() {
         {
           path: "/propertyListForm",
           element: <PropertyListForm/>
+        },
+        {
+          path: "/cart",
+          element: <BookingCart/>
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutForm/>
         }
       ]
     }
   ])
   return (
-    <CartProvider>
-      <RouterProvider router={appRouter}/>
-    </CartProvider>
+    <BookingProvider>
+        <RouterProvider router={appRouter}/>
+    </BookingProvider>
   )
 }
 

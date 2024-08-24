@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../utils/CartContext";
+import { BookingContext } from "../utils/BookingContext";
 
 const Header = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useContext(BookingContext);
   return (
     <header className="bg-white shadow-md py-3 fixed z-50 border-b justify-center flex w-full font-light md:px-28">
       <div className="container flex flex-col items-center justify-between md:flex-row">

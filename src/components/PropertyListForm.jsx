@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 const PropertyListForm = ({ onSubmit }) => {
   const [property, setProperty] = useState({
     title: '',
