@@ -1,7 +1,7 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Browse from './components/Browse';
-import { CartProvider } from './utils/CartContext';
+import Header from './components/Header';
 
 
 function App() {
@@ -12,9 +12,11 @@ function App() {
     }
   ])
   return (
-    <CartProvider>
+    <>
+      <Header/>
       <RouterProvider router={appRouter}/>
-    </CartProvider>
+    </>
+    
   )
 }
 
