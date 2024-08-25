@@ -23,11 +23,9 @@ const Login = () => {
             });
 
             const data = await response.json();
-            const email2= data.user.email;
-            const name2 = data.user.name;
             if (response.ok) {
                 // Store the token and redirect to a protected page
-                login({email: email2, name: name2});
+                login(data.user);
                 localStorage.setItem('token', data.token);
                 navigate('/'); // Example redirect after login
             } else {

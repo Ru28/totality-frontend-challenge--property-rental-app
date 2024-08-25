@@ -1,7 +1,8 @@
-import { useState } from 'react';
-
-// eslint-disable-next-line react/prop-types
-const PropertyListForm = ({ onSubmit }) => {
+import { useContext, useState } from 'react';
+import { API_URL } from '../constant/constant';
+import { AuthContext } from '../utils/AuthContext';
+const PropertyListForm = () => {
+  const {user}= useContext(AuthContext);
   const [property, setProperty] = useState({
     title: '',
     description: '',
@@ -43,10 +44,33 @@ const PropertyListForm = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('userId',user.id);
+    data.append('title', property.title);
+    data.append('description', property.description);
+    data.append('rentPrice', property.rentPrice);
+    data.append('location', property.location);
+    data.append('bedrooms', property.bedrooms);
+    data.append('amenities[pool]', property.amenities.pool);
+    data.append('amenities[gym]', property.amenities.gym);
+    data.append('amenities[fullyFurnished]', property.amenities.fullyFurnished);
+    data.append('amenities[semiFurnished]', property.amenities.semiFurnished);
+    data.append('amenities[lift]', property.amenities.lift);
+    data.append('amenities[unfurnished]', property.amenities.unfurnished);
+    data.append('image', property.image);
 
-    onSubmit(property);
+    try{
+      const response = await fetch(`${API_URL}property/addPropertyDetails`,{
+        method: 'POST',
+        body: data,
+      });
+      console.log('Property added:', response.data);
+    }
+    catch(error){
+      console.error('Error adding property:', error);
+    }
   };
 
   return (

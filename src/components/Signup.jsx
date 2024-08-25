@@ -27,13 +27,7 @@ const Signup = () => {
 
             if (response.ok) {
                 // Redirect to browse(home) page after successful signup
-                login({name:name,email:email});
-                const userData = {
-                    name: name,
-                    email: email,
-                    avatar: 'https://via.placeholder.com/150'
-                }
-                localStorage.setItem('user',JSON.stringify(userData));
+                login(data.user);
                 localStorage.setItem('token', data.token);
                 navigate('/');
             } else {
