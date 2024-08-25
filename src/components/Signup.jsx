@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from '../utils/AuthContext';
+import { API_URL} from '../constant/constant';
 const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const {login} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -13,7 +15,7 @@ const Signup = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/signup', {
+            const response = await fetch(`${API_URL}auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,8 +26,16 @@ const Signup = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Redirect to login page after successful signup
-                navigate('/login');
+                // Redirect to browse(home) page after successful signup
+                login({name:name,email:email});
+                const userData = {
+                    name: name,
+                    email: email,
+                    avatar: 'https://via.placeholder.com/150'
+                }
+                localStorage.setItem('user',JSON.stringify(userData));
+                localStorage.setItem('token', data.token);
+                navigate('/');
             } else {
                 setError(data.message);
             }

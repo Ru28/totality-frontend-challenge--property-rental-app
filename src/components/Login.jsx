@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { API_URL } from '../constant/constant';
+import { AuthContext } from '../utils/AuthContext';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const {login} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -12,7 +14,7 @@ const Login = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch(`${API_URL}auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,11 +23,13 @@ const Login = () => {
             });
 
             const data = await response.json();
-
+            const email2= data.user.email;
+            const name2 = data.user.name;
             if (response.ok) {
                 // Store the token and redirect to a protected page
+                login({email: email2, name: name2});
                 localStorage.setItem('token', data.token);
-                navigate('/dashboard'); // Example redirect after login
+                navigate('/'); // Example redirect after login
             } else {
                 setError(data.message);
             }

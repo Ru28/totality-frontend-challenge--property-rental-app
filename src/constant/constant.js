@@ -1,0 +1,1 @@
+export const API_URL='https://property-rental-app-node-js-backend.vercel.app/';

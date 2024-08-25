@@ -8,6 +8,7 @@ import PropertyListForm from './components/PropertyListForm';
 import BookingCart from './components/BookingCart';
 import { BookingProvider } from './utils/BookingContext';
 import CheckoutForm from './components/CheckoutForm';
+import { AuthProvider } from './utils/AuthContext';
 
 function App() {
   const appRouter= createBrowserRouter([
@@ -43,9 +44,11 @@ function App() {
     }
   ])
   return (
-    <BookingProvider>
-        <RouterProvider router={appRouter}/>
-    </BookingProvider>
+    <AuthProvider>
+      <BookingProvider>
+          <RouterProvider router={appRouter}/>
+      </BookingProvider>
+    </AuthProvider>
   )
 }
 
