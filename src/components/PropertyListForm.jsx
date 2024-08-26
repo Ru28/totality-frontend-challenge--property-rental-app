@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
 import { API_URL } from '../constant/constant';
 import { AuthContext } from '../utils/AuthContext';
+import { useNavigate } from 'react-router-dom';
 const PropertyListForm = () => {
   const {user}= useContext(AuthContext);
+  const navigate = useNavigate();
   const [property, setProperty] = useState({
     title: '',
     description: '',
@@ -62,11 +64,12 @@ const PropertyListForm = () => {
     data.append('image', property.image);
 
     try{
-      const response = await fetch(`${API_URL}property/addPropertyDetails`,{
+      const response = await fetch(`http://localhost:3000/property/addPropertyDetails`,{
         method: 'POST',
         body: data,
       });
-      console.log('Property added:', response.data);
+      console.log('Property added:', response);
+      navigate('/');
     }
     catch(error){
       console.error('Error adding property:', error);
